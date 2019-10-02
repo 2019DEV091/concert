@@ -1,0 +1,107 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.ctg</groupId>
+	<artifactId>concertWebsite</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>concertWebsite</name>
+	<properties>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<cucumber.version>4.3.0</cucumber.version>
+		<cucumber.report.json.location>${project.basedir}/target/cucumber-report/</cucumber.report.json.location>
+		<generated.report.location>${project.build.directory}\cluecumber-report</generated.report.location>
+	</properties>
+	<build>
+		<plugins>
+		<plugin>
+				<groupId>com.trivago.rta</groupId>
+				<artifactId>cluecumber-report-plugin</artifactId>
+				<version>2.2.0</version>
+				<executions>
+					<execution>
+						<id>report</id>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>reporting</goal>
+						</goals>
+						<configuration>
+							<sourceJsonReportDirectory>${cucumber.report.json.location}</sourceJsonReportDirectory>
+							<generatedHtmlReportDirectory>${generated.report.location}</generatedHtmlReportDirectory>
+
+							<!-- Optional custom parameters that are shown on the start page if 
+								they have a value -->
+							<customParameters>
+								<Custom_Parameter>This is a test</Custom_Parameter>
+								<Custom_URL>http://www.google.com</Custom_URL>
+								<Custom_test>${testje}</Custom_test>
+								<Empty_Parameter />
+							</customParameters>
+
+							<!-- Optional custom CSS for custom styling -->
+							<!--<customCss>custom/custom.css</customCss> -->
+
+							<!-- Optional skip property for the whole report generation -->
+							<!--<skip>true</skip> -->
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<version>2.17</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<forkCount>0</forkCount>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<dependencies>
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-java</artifactId>
+			<version>${cucumber.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-testng</artifactId>
+			<version>${cucumber.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-picocontainer -->
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-picocontainer</artifactId>
+			<version>${cucumber.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>6.10</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+		<groupId>com.ctg</groupId>
+		<artifactId>smallSeleniumFramework</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.trivago.rta</groupId>
+			<artifactId>cluecumber-report-plugin</artifactId>
+			<version>2.2.0</version>
+			<type>maven-plugin</type>
+		</dependency>
+	</dependencies>
+</project>
